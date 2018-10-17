@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://coderdojo-seto.github.io/posts/2018-10-17/</loc>
+    <lastmod>2018-10-17T09:50:10+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://coderdojo-seto.github.io/access/</loc>
     <lastmod>2018-10-15T23:58:46+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -33,6 +40,13 @@
     <loc>https://coderdojo-seto.github.io/tags/</loc>
     <changefreq>monthly</changefreq>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://coderdojo-seto.github.io/posts/</loc>
+    <lastmod>2018-10-17T09:50:10+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   
 </urlset>
