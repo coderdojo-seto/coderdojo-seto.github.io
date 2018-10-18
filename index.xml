@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CoderDojo瀬戸 on CoderDojo 瀬戸</title>
+    <title>CoderDojo 瀬戸</title>
     <link>https://coderdojo-seto.github.io/</link>
-    <description>Recent content in CoderDojo瀬戸 on CoderDojo 瀬戸</description>
+    <description>Recent content on CoderDojo 瀬戸</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Mon, 15 Oct 2018 23:35:47 +0900</lastBuildDate>
@@ -33,13 +33,13 @@ CoderDojo 瀬戸 子供向けプログラミング道場 2018/10/28 開催</desc
     </item>
     
     <item>
-      <title>CoderDojo瀬戸について</title>
+      <title>CoderDojo 瀬戸について</title>
       <link>https://coderdojo-seto.github.io/about/</link>
       <pubDate>Mon, 15 Oct 2018 23:42:03 +0900</pubDate>
       
       <guid>https://coderdojo-seto.github.io/about/</guid>
-      <description>CoderDojo 瀬戸とは？ CoderDojo瀬戸は愛知県瀬戸市で開催する子供向けプログラミング教室です。
-CoderDojo瀬戸は
+      <description>CoderDojo 瀬戸とは？ CoderDojo 瀬戸は愛知県瀬戸市で開催する子供向けプログラミング教室です。
+CoderDojo 瀬戸は
  小中学生向けのプログラミング道場です。 プログラミングをしたい子供のために、自由にプログラミングをする環境を提供します。 いわゆる習い事・塾ではないので、課題や決まったカリキュラムはありません。 代わりに子供が作りたいと思ったものを作ります。 子供はメンター（指導者）と一緒に実現する方法を考えて取り組みます。  CoderDojo とは？ CoderDojo (本家日本語ページ) は、子どもたちのためのプログラミング道場です。
 2011年にアイルランドから始まり、現在は全国で150ヶ所以上、世界では100カ国・1,900以上の道場が定期的に開催されています。 CoderDojo は「オープンソース」と呼ばれる文化に根付いたコミュニティであり、チャンピオンやメンターと呼ばれる協力者によって自主的に運営されています。
 チャンピオンやメンターにはプログラミングやデザインなどに関わられている方が多いですが、研究者や学生、写真家やアーティスト、起業家や経営者などの方々も参加されています。もちろん、参加者の親がチャンピオンやメンターになる事例もあります。
