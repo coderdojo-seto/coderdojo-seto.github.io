@@ -6,10 +6,28 @@
     <description>Recent content in 記事一覧 on CoderDojo 瀬戸</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Thu, 14 Feb 2019 09:03:19 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 06 Mar 2019 18:10:05 +0900</lastBuildDate>
     
 	<atom:link href="https://coderdojo-seto.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>開催告知 2019/03/09</title>
+      <link>https://coderdojo-seto.github.io/posts/2019/03/06/</link>
+      <pubDate>Wed, 06 Mar 2019 18:10:05 +0900</pubDate>
+      
+      <guid>https://coderdojo-seto.github.io/posts/2019/03/06/</guid>
+      <description>2019/03/09開催の募集ページを公開しています。 詳細は下記のconnpassの申し込みページをご確認下さい。 https://coderdojo-seto.connpass.com/event/121089/</description>
+    </item>
+    
+    <item>
+      <title>開催告知 2019/03/09</title>
+      <link>https://coderdojo-seto.github.io/posts/2019/03/07/</link>
+      <pubDate>Wed, 06 Mar 2019 18:10:05 +0900</pubDate>
+      
+      <guid>https://coderdojo-seto.github.io/posts/2019/03/07/</guid>
+      <description>2019/03/30開催の募集ページを公開しています。 詳細は下記のconnpassの申し込みページをご確認下さい。 https://coderdojo-seto.connpass.com/event/121091/</description>
+    </item>
     
     <item>
       <title>開催レポート2019/02/10</title>
