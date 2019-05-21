@@ -6,10 +6,19 @@
     <description>Recent content in 記事一覧 on CoderDojo 瀬戸</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
-    <lastBuildDate>Mon, 22 Apr 2019 21:36:07 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 19 May 2019 16:22:54 +0900</lastBuildDate>
     
 	<atom:link href="https://coderdojo-seto.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>開催レポート 2019/05/19</title>
+      <link>https://coderdojo-seto.github.io/posts/2019/05/19/</link>
+      <pubDate>Sun, 19 May 2019 16:22:54 +0900</pubDate>
+      
+      <guid>https://coderdojo-seto.github.io/posts/2019/05/19/</guid>
+      <description>5月18日10:00〜12:00 にゲストハウスますきちで、ニンジャ（子供）9人、メンター1人でCoderDojo瀬戸を開催しました。 開催風景</description>
+    </item>
     
     <item>
       <title>開催告知 2019/05/25</title>
