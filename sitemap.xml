@@ -3,6 +3,20 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://coderdojo-seto.github.io/posts/2019/06/15-3/</loc>
+    <lastmod>2019-06-15T16:59:41+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://coderdojo-seto.github.io/posts/2019/06/15-2/</loc>
+    <lastmod>2019-06-15T16:25:07+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://coderdojo-seto.github.io/posts/2019/06/15/</loc>
     <lastmod>2019-06-15T16:19:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -219,7 +233,7 @@
   
   <url>
     <loc>https://coderdojo-seto.github.io/posts/</loc>
-    <lastmod>2019-06-15T16:19:00+09:00</lastmod>
+    <lastmod>2019-06-15T16:59:41+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
