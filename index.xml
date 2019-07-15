@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CoderDojo 瀬戸</title>
+    <title>CoderDojo瀬戸</title>
     <link>https://coderdojo-seto.github.io/</link>
-    <description>Recent content on CoderDojo 瀬戸</description>
+    <description>Recent content on CoderDojo瀬戸</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <lastBuildDate>Mon, 15 Oct 2018 23:35:47 +0900</lastBuildDate>
     
 	<atom:link href="https://coderdojo-seto.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>開催レポート2019/07/13</title>
+      <link>https://coderdojo-seto.github.io/posts/2019/07/15/</link>
+      <pubDate>Mon, 15 Jul 2019 13:18:18 +0900</pubDate>
+      
+      <guid>https://coderdojo-seto.github.io/posts/2019/07/15/</guid>
+      <description>7月13日（土）10:00〜12:00 にゲストハウスますきちで、ニンジャ（子供）6人、メンター3人でCoderDojo瀬戸を開催しました。 開</description>
+    </item>
     
     <item>
       <title>開催レポート2019/06/22</title>
@@ -207,9 +216,7 @@
       
       <guid>https://coderdojo-seto.github.io/posts/2018/12/01/</guid>
       <description>&lt;p&gt;12月1日(土)10:00〜12:00 にゲストハウスますきちで、ニンジャ（子供）4人でCoderDojo瀬戸を開催しました。
-今回は初参加一名、経験者三名（うち途中参加一名）でした。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+今回は初参加一名、経験者三名（うち途中参加一名）でした。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -228,9 +235,7 @@
       
       <guid>https://coderdojo-seto.github.io/posts/2018/11/23/</guid>
       <description>&lt;p&gt;11月23日（金）10:00〜12:00にゲストハウスますきちで、ニンジャ（子供）6人で初のCoderDojo瀬戸を開催しました。
-今回は2人のニンジャが初参加でした。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+今回は2人のニンジャが初参加でした。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -240,9 +245,7 @@
       
       <guid>https://coderdojo-seto.github.io/posts/2018/11/11/</guid>
       <description>&lt;p&gt;11月11日(日)10:00〜12:00 にゲストハウスますきちで、ニンジャ（子供）4人で初のCoderDojo瀬戸を開催しました。
-今回も個性的な作品をたくさん見ることができて楽しかったです。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+今回も個性的な作品をたくさん見ることができて楽しかったです。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -270,9 +273,7 @@
       
       <guid>https://coderdojo-seto.github.io/posts/2018/10/28/</guid>
       <description>&lt;p&gt;10月28日(日)10:00〜12:00 にゲストハウスますきちで、ニンジャ（子供）5人、メンター1人で初のCoderDojo瀬戸を開催しました。
-初回ながら多くのニンジャに参加してもらい嬉しかったです。&lt;/p&gt;
-
-&lt;p&gt;&lt;/p&gt;</description>
+初回ながら多くのニンジャに参加してもらい嬉しかったです。&lt;/p&gt;</description>
     </item>
     
     <item>
