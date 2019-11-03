@@ -4,7 +4,14 @@
   
   <url>
     <loc>https://coderdojo-seto.github.io/posts/</loc>
-    <lastmod>2019-10-01T08:32:00+09:00</lastmod>
+    <lastmod>2019-11-03T12:05:12+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://coderdojo-seto.github.io/posts/2019/11/03/</loc>
+    <lastmod>2019-11-03T12:05:12+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
