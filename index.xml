@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>CoderDojo瀬戸</title>
@@ -10,6 +10,15 @@
     
 	<atom:link href="https://coderdojo-seto.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>開催レポート2019/11/9</title>
+      <link>https://coderdojo-seto.github.io/posts/2019/12/30/</link>
+      <pubDate>Mon, 30 Dec 2019 11:42:04 +0900</pubDate>
+      
+      <guid>https://coderdojo-seto.github.io/posts/2019/12/30/</guid>
+      <description>11月9日(10:00～12:00)ゲストハウスますきちで、ニンジャ(子供)6人、メンター3人でCoderDojo瀬戸を開催しました。 開催風</description>
+    </item>
     
     <item>
       <title>開催レポート2019/10/26</title>
@@ -336,7 +345,7 @@
       <pubDate>Mon, 15 Oct 2018 23:58:46 +0900</pubDate>
       
       <guid>https://coderdojo-seto.github.io/access/</guid>
-      <description>開催場所 ゲストハウスますきち 愛知県瀬戸市仲切町２２ 最寄り駅 名鉄尾張瀬戸駅 駐車場 有り 車でお越しの方へ 狭い道が多く、ナビの通りに来ると立ち往生し</description>
+      <description>開催場所 ゲストハウスますきち 愛知県瀬戸市仲切町２２ 車でお越しの方へ 狭い道が多く、ナビの通りに来ると立ち往生してしまうことがあります。 尾張瀬戸</description>
     </item>
     
     <item>
