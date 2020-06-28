@@ -3,14 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://coderdojo-seto.github.io/posts/2020/01/11/</loc>
-    <lastmod>2020-01-11T16:02:51+09:00</lastmod>
+    <loc>https://coderdojo-seto.github.io/posts/2020/01/25/</loc>
+    <lastmod>2020-01-25T17:51:00+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://coderdojo-seto.github.io/posts/</loc>
+    <lastmod>2020-01-25T17:51:00+09:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://coderdojo-seto.github.io/posts/2020/01/11/</loc>
     <lastmod>2020-01-11T16:02:51+09:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
