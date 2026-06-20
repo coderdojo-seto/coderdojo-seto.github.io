@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>めざせScratch神クイズ｜CoderDojo瀬戸 Scratchクイズ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="topbar-home" href="index.html">
+        <span class="logo">🐱</span>
+        <span class="logo-text">Scratchクイズ</span>
+      </a>
+      <a class="topbar-credit" href="https://coderdojo-seto.jp/" target="_blank" rel="noopener">
+        <img class="topbar-credit-icon" src="coderdojo-seto-icon.png" alt="">
+        <span>CoderDojo瀬戸</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="page">
+    <a class="back-link" href="index.html">← クイズ一覧へもどる</a>
+
+    <div class="page-head">
+      <h1>めざせScratch神クイズ</h1>
+      <p>とことん細かい仕様、神レベルで知ってる？ 全10問</p>
+    </div>
+
+    <!-- スタート画面 -->
+    <section id="screen-start" class="card screen-start">
+      <div class="emoji">⚡</div>
+      <h2>はじめるよ！</h2>
+      <p>めざせScratch神！とことんマニアックな仕様クイズだよ。<br>ぜんぶ4つの中から1つえらんでね。何問わかるかな？</p>
+      <button class="btn btn-start" id="start-btn">🚩 スタート</button>
+    </section>
+
+    <!-- 問題画面 -->
+    <section id="screen-quiz" class="card hidden">
+      <div class="progress-row">
+        <span id="progress-label">第1問 / 10問</span>
+        <span id="score-label">せいかい 0</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+      <h2 class="question-text" id="question-text"></h2>
+      <div class="choices" id="choices"></div>
+
+      <div class="feedback" id="feedback">
+        <p class="result" id="feedback-result"></p>
+        <span class="hint-label">神ポイント</span>
+        <p class="explain" id="feedback-explain"></p>
+      </div>
+
+      <div class="next-row hidden" id="next-row">
+        <button class="btn btn-next" id="next-btn">つぎの問題 →</button>
+      </div>
+    </section>
+
+    <!-- 結果画面 -->
+    <section id="screen-result" class="card screen-result hidden">
+      <div class="emoji" id="result-emoji">🎉</div>
+      <h2 id="result-title">けっか</h2>
+      <div class="score"><span id="result-score">0</span><small> / 10 問せいかい</small></div>
+      <p class="best-note" id="best-note"></p>
+      <p class="result-message" id="result-message"></p>
+      <div class="result-actions">
+        <button class="btn btn-blue" id="retry-btn">もう一回</button>
+        <a class="btn btn-ghost" href="index.html">ほかのクイズをやる</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">CoderDojo瀬戸 ｜ みんなでプログラミングを楽しもう</footer>
+  </main>
+
+<script src="scores.js"></script>
+<script>
+  const QUIZ_ID = "maniac";
+
+  // 各問題: choices の先頭(answerIndex=0)が正解。表示時にシャッフルされる。
+  const QUESTIONS = [
+    {
+      q: "リスト（値をたくさん入れる箱）に、ふつうに追加していけるのは最大いくつまで？",
+      choices: [
+        "200,000（20万）こ",
+        "1,000こ",
+        "10,000こ",
+        "むげん（上限なし）"
+      ],
+      answerIndex: 0,
+      explain: "Scratch 3.0では、リストが200,000こになると、それ以上は「追加」や「そう入」で増やせなくなるんだ（読みこみで増やすのは別）。データのため込みすぎに注意！"
+    },
+    {
+      q: "ペンの太さ（ペンサイズ）、最大いくつまで太くできる？",
+      choices: [
+        "1200",
+        "100",
+        "500",
+        "10000"
+      ],
+      answerIndex: 0,
+      explain: "ペンサイズは1〜1200。最大の1200にすると、点を1つ打つだけでステージ全体をぬりつぶせる太さだよ。（昔のバージョンはもっと小さかった）"
+    },
+    {
+      q: "「色の効果」を変えていくと、いくつで元と同じ色にもどる（一周する）？",
+      choices: [
+        "200",
+        "100",
+        "255",
+        "360"
+      ],
+      answerIndex: 0,
+      explain: "色の効果は200で一周して、また同じ色にもどるんだ。だから「色の効果を200ずつ変える」と見た目は変わらないよ。"
+    },
+    {
+      q: "ふつうのScratchの作品は、1秒間に何回くらい動いている（くり返している）？",
+      choices: [
+        "30回",
+        "10回",
+        "60回",
+        "1000回"
+      ],
+      answerIndex: 0,
+      explain: "Scratchは標準で1秒に30回（30fps）のペースで動くよ。緑の旗をシフトを押しながらクリックする「ターボモード」や、カスタムブロックの「画面を再びょうがせずに実行する」を使うともっと速くできる。"
+    },
+    {
+      q: "スプライトを「270度に向ける」と、向きの数字はどうなる？",
+      choices: [
+        "-90 になる",
+        "270 のまま",
+        "90 になる",
+        "0 になる"
+      ],
+      answerIndex: 0,
+      explain: "Scratchの向きは-180〜180の範囲でおぼえているので、270は同じ向きの-90に直されるんだ（右が90、上が0、左が-90、下が180）。"
+    },
+    {
+      q: "クラウド変数（☁）にほぞんできる数字、最大なん桁まで？",
+      choices: [
+        "256桁",
+        "10桁",
+        "1000桁",
+        "桁の制限はない"
+      ],
+      answerIndex: 0,
+      explain: "クラウド変数は数字だけ・最大256桁まで。それより大きい数や、文字（ことば）はほぞんできないんだ。だから世界ランキングのスコアなどに使われるよ。"
+    },
+    {
+      q: ".sb3（作品を保存したファイル）の正体は、じつは何ファイル？",
+      choices: [
+        "ZIP（圧縮）ファイル",
+        "画像ファイル",
+        "テキストファイル",
+        "動画ファイル"
+      ],
+      answerIndex: 0,
+      explain: ".sb3は中身がZIP（圧縮ファイル）なんだ。名前を.zipに変えて開くと、プログラムの情報（project.json）や画像・音の素材が入っているのが見られるよ。"
+    },
+    {
+      q: "今のScratch（3.0）は、おもに何というプログラミング言語で作られている？",
+      choices: [
+        "JavaScript",
+        "Python",
+        "C言語",
+        "Scratch"
+      ],
+      answerIndex: 0,
+      explain: "Scratch 3.0はJavaScriptで作られているよ。バージョンごとにちがって、2.0はFlash（ActionScript）、1.4はSqueak（Smalltalk）という言語だったんだ。"
+    },
+    {
+      q: "Scratchで「1 ÷ 0」を計算すると、答えはどうなる？",
+      choices: [
+        "Infinity（むげん大）と出る",
+        "0 になる",
+        "エラーで止まる",
+        "1 になる"
+      ],
+      answerIndex: 0,
+      explain: "Scratchでは1÷0は「Infinity（むげん大）」になるよ。エラーで止まったりはしないんだ。ちなみに0÷0だと「NaN（数じゃない、という意味）」になる。"
+    },
+    {
+      q: "音の高さを変える「ピッチの効果」、いくつ変えると半音（はんおん）上がる？",
+      choices: [
+        "10",
+        "1",
+        "12",
+        "100"
+      ],
+      answerIndex: 0,
+      explain: "ピッチの効果は10で半音、120で1オクターブ上がるんだ。数を大きくするほど高く、マイナスにすると低くなるよ。"
+    }
+  ];
+
+  const LABELS = ["A", "B", "C", "D"];
+
+  const screens = {
+    start: document.getElementById("screen-start"),
+    quiz: document.getElementById("screen-quiz"),
+    result: document.getElementById("screen-result")
+  };
+
+  const progressLabel = document.getElementById("progress-label");
+  const scoreLabel = document.getElementById("score-label");
+  const progressFill = document.getElementById("progress-fill");
+  const questionText = document.getElementById("question-text");
+  const choicesContainer = document.getElementById("choices");
+  const feedback = document.getElementById("feedback");
+  const feedbackResult = document.getElementById("feedback-result");
+  const feedbackExplain = document.getElementById("feedback-explain");
+  const nextRow = document.getElementById("next-row");
+  const nextButton = document.getElementById("next-btn");
+
+  let currentIndex = 0;
+  let correctCount = 0;
+
+  function showScreen(name) {
+    Object.values(screens).forEach(section => section.classList.add("hidden"));
+    screens[name].classList.remove("hidden");
+  }
+
+  // 配列をシャッフルして新しい配列を返す（毎回ならびが変わる）
+  function shuffle(items) {
+    const shuffled = items.slice();
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
+
+  function startQuiz() {
+    currentIndex = 0;
+    correctCount = 0;
+    showScreen("quiz");
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const question = QUESTIONS[currentIndex];
+
+    progressLabel.textContent = `第${currentIndex + 1}問 / ${QUESTIONS.length}問`;
+    scoreLabel.textContent = `せいかい ${correctCount}`;
+    progressFill.style.width = `${(currentIndex / QUESTIONS.length) * 100}%`;
+
+    questionText.textContent = question.q;
+
+    feedback.classList.remove("show", "ok", "ng");
+    nextRow.classList.add("hidden");
+    choicesContainer.innerHTML = "";
+
+    const correctText = question.choices[question.answerIndex];
+    const shuffledChoices = shuffle(question.choices);
+
+    shuffledChoices.forEach((choiceText, position) => {
+      const button = document.createElement("button");
+      button.className = `choice c${position}`;
+      button.innerHTML = `<span class="mark">${LABELS[position]}</span><span>${choiceText}</span>`;
+      button.addEventListener("click", () => answerQuestion(button, choiceText === correctText, correctText));
+      choicesContainer.appendChild(button);
+    });
+  }
+
+  function answerQuestion(selectedButton, isCorrect, correctText) {
+    const buttons = Array.from(choicesContainer.querySelectorAll(".choice"));
+    buttons.forEach(button => {
+      button.disabled = true;
+      const choiceLabel = button.querySelector("span:last-child").textContent;
+      if (choiceLabel === correctText) {
+        button.classList.add("correct");
+      } else if (button === selectedButton) {
+        button.classList.add("wrong");
+      } else {
+        button.classList.add("dimmed");
+      }
+    });
+
+    if (isCorrect) {
+      correctCount++;
+      feedback.classList.add("ok");
+      feedbackResult.textContent = "せいかい！🎉";
+    } else {
+      feedback.classList.add("ng");
+      feedbackResult.textContent = "ざんねん…正解はみどりのところ！";
+    }
+
+    scoreLabel.textContent = `せいかい ${correctCount}`;
+    feedbackExplain.textContent = QUESTIONS[currentIndex].explain;
+    feedback.classList.add("show");
+
+    nextButton.textContent = currentIndex === QUESTIONS.length - 1 ? "けっかを見る →" : "つぎの問題 →";
+    nextRow.classList.remove("hidden");
+  }
+
+  function goNext() {
+    currentIndex++;
+    if (currentIndex >= QUESTIONS.length) {
+      showResult();
+    } else {
+      renderQuestion();
+    }
+  }
+
+  function showResult() {
+    showScreen("result");
+    document.getElementById("result-score").textContent = correctCount;
+
+    const isNewBest = saveBestScore(QUIZ_ID, correctCount);
+    const bestScore = getBestScore(QUIZ_ID);
+    const bestNote = document.getElementById("best-note");
+    bestNote.textContent = (isNewBest && correctCount > 0)
+      ? `🎉 ベストこうしん！ いまのベストは ${bestScore} / ${QUESTIONS.length}問`
+      : `これまでのベスト：${bestScore} / ${QUESTIONS.length}問`;
+
+    const emoji = document.getElementById("result-emoji");
+    const title = document.getElementById("result-title");
+    const message = document.getElementById("result-message");
+
+    if (correctCount === QUESTIONS.length) {
+      emoji.textContent = "⚡";
+      title.textContent = "Scratch神 認定！";
+      message.textContent = "ぜんもんせいかい！キミはもうScratch神だ。ここまで知ってる人はほとんどいないよ！";
+    } else if (correctCount >= 7) {
+      emoji.textContent = "🎉";
+      title.textContent = "あと少しで神！";
+      message.textContent = "かなりくわしいね！知らなかった仕様は、ぜひ作品で試してみよう。";
+    } else if (correctCount >= 4) {
+      emoji.textContent = "😊";
+      title.textContent = "いいかんじ！";
+      message.textContent = "細かい仕様、半分くらい分かったね。残りもおぼえて神をめざそう！";
+    } else {
+      emoji.textContent = "🌱";
+      title.textContent = "ここからが本番！";
+      message.textContent = "知らない仕様がいっぱいあったかな？これを知ってたらかなりのツウ。もう一回ちょうせんして神をめざそう！";
+    }
+  }
+
+  document.getElementById("start-btn").addEventListener("click", startQuiz);
+  document.getElementById("retry-btn").addEventListener("click", startQuiz);
+  nextButton.addEventListener("click", goNext);
+</script>
+</body>
+</html>

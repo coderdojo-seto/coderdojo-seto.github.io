@@ -1,12 +1,99 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta http-equiv="refresh" content="3;url=https://coderdojo-seto.jp">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CoderDojo瀬戸</title>
-  </head>
-  <body>
-    ホームページは移転しました。ページへ移動します。<br>
-    <a href="https://coderdojo-seto.jp/">https://coderdojo-seto.jp/</a>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scratchクイズ｜CoderDojo瀬戸</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="topbar-home" href="index.html">
+        <span class="logo">🐱</span>
+        <span class="logo-text">Scratchクイズ</span>
+      </a>
+      <a class="topbar-credit" href="https://coderdojo-seto.jp/" target="_blank" rel="noopener">
+        <img class="topbar-credit-icon" src="coderdojo-seto-icon.png" alt="">
+        <span>CoderDojo瀬戸</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>あそんで学ぶ Scratchクイズ</h1>
+      <p>クイズをといて、Scratchにもっとくわしくなろう！</p>
+    </div>
+
+    <nav class="quiz-list">
+      <a class="quiz-card dekiru" href="dekiru.html" data-quiz="dekiru">
+        <div class="icon">⭕️</div>
+        <div class="body">
+          <h2>できる・できないクイズ</h2>
+          <p>これ、Scratchで「できる」？それとも「できない」？</p>
+          <div class="tags">
+            <span class="tag">ぜんぶで10問</span>
+            <span class="tag">⭕️か❌でこたえる</span>
+          </div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="quiz-card hee" href="hee.html" data-quiz="hee">
+        <div class="icon">🎓</div>
+        <div class="body">
+          <h2>めざせScratch名人クイズ</h2>
+          <p>正しい使い方、知ってるかな？</p>
+          <div class="tags">
+            <span class="tag">ぜんぶで10問</span>
+            <span class="tag">4つからえらぶ</span>
+          </div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="quiz-card maniac" href="maniac.html" data-quiz="maniac">
+        <div class="icon">⚡</div>
+        <div class="body">
+          <h2>めざせScratch神クイズ</h2>
+          <p>とことん細かい仕様、神レベルで知ってる？</p>
+          <div class="tags">
+            <span class="tag">ぜんぶで10問</span>
+            <span class="tag">4つからえらぶ</span>
+            <span class="tag">神級</span>
+          </div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+    </nav>
+
+    <footer class="site-footer">CoderDojo瀬戸 ｜ みんなでプログラミングを楽しもう</footer>
+  </main>
+
+  <script src="scores.js"></script>
+  <script>
+    // 各カードに、保存されているベストスコアを表示する。
+    // 全問正解のカテゴリは「⭐ ぜんもん正解！」を出してカードを金色にする。
+    document.querySelectorAll(".quiz-card[data-quiz]").forEach((card) => {
+      const quizId = card.dataset.quiz;
+      const best = getBestScore(quizId);
+      if (best === null) {
+        return;
+      }
+      const total = getQuizTotal(quizId);
+      const tags = card.querySelector(".tags");
+      const status = document.createElement("span");
+      if (best >= total) {
+        card.classList.add("cleared");
+        status.className = "tag cleared";
+        status.textContent = "⭐ ぜんもん正解！";
+      } else {
+        status.className = "tag best";
+        status.textContent = `ベスト ${best}/${total}`;
+      }
+      tags.appendChild(status);
+    });
+  </script>
+</body>
 </html>

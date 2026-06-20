@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>めざせScratch名人クイズ｜CoderDojo瀬戸 Scratchクイズ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="topbar-home" href="index.html">
+        <span class="logo">🐱</span>
+        <span class="logo-text">Scratchクイズ</span>
+      </a>
+      <a class="topbar-credit" href="https://coderdojo-seto.jp/" target="_blank" rel="noopener">
+        <img class="topbar-credit-icon" src="coderdojo-seto-icon.png" alt="">
+        <span>CoderDojo瀬戸</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="page">
+    <a class="back-link" href="index.html">← クイズ一覧へもどる</a>
+
+    <div class="page-head">
+      <h1>めざせScratch名人クイズ</h1>
+      <p>正しい使い方、知ってるかな？ 全10問</p>
+    </div>
+
+    <!-- スタート画面 -->
+    <section id="screen-start" class="card screen-start">
+      <div class="emoji">🎓🐱</div>
+      <h2>はじめるよ！</h2>
+      <p>Scratchの「正しい使い方」が分かるかな？<br>ぜんぶ4つの中から1つえらんでね。何問わかるかな？</p>
+      <button class="btn btn-start" id="start-btn">🚩 スタート</button>
+    </section>
+
+    <!-- 問題画面 -->
+    <section id="screen-quiz" class="card hidden">
+      <div class="progress-row">
+        <span id="progress-label">第1問 / 10問</span>
+        <span id="score-label">せいかい 0</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+      <h2 class="question-text" id="question-text"></h2>
+      <div class="choices" id="choices"></div>
+
+      <div class="feedback" id="feedback">
+        <p class="result" id="feedback-result"></p>
+        <span class="hint-label">へえポイント</span>
+        <p class="explain" id="feedback-explain"></p>
+      </div>
+
+      <div class="next-row hidden" id="next-row">
+        <button class="btn btn-next" id="next-btn">つぎの問題 →</button>
+      </div>
+    </section>
+
+    <!-- 結果画面 -->
+    <section id="screen-result" class="card screen-result hidden">
+      <div class="emoji" id="result-emoji">🎉</div>
+      <h2 id="result-title">けっか</h2>
+      <div class="score"><span id="result-score">0</span><small> / 10 問せいかい</small></div>
+      <p class="best-note" id="best-note"></p>
+      <p class="result-message" id="result-message"></p>
+      <div class="result-actions">
+        <button class="btn btn-blue" id="retry-btn">もう一回</button>
+        <a class="btn btn-ghost" href="index.html">ほかのクイズをやる</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">CoderDojo瀬戸 ｜ みんなでプログラミングを楽しもう</footer>
+  </main>
+
+<script src="scores.js"></script>
+<script>
+  const QUIZ_ID = "hee";
+
+  // 各問題: choices の先頭(answerIndex=0)が正解。表示時にシャッフルされる。
+  // 選択肢は短く対等な候補だけにして、くわしい答えは回答後の explain（へえポイント）で明かす。
+  const QUESTIONS = [
+    {
+      q: "Scratchで、日本語で書いた文を英語に変えたい！どうすればいい？",
+      choices: [
+        "「ほんやく」の拡張機能を使う",
+        "「音声合成」の拡張機能を使う",
+        "「○と言う」ブロックを使う",
+        "自分で英語に打ち直すしかない"
+      ],
+      answerIndex: 0,
+      explain: "左下の「拡張機能」から「ほんやく（英語ではTranslate）」を追加すると、文をいろんな国のことばに自動で変換できるよ。世界中の人に向けた作品が作れる！"
+    },
+    {
+      q: "スプライトを“声”でしゃべらせたい！正しい方法はどれ？",
+      choices: [
+        "「音声合成」の拡張機能を使う",
+        "「ほんやく」の拡張機能を使う",
+        "「○と言う」ブロックを使う",
+        "「終わるまで音を鳴らす」ブロックを使う"
+      ],
+      answerIndex: 0,
+      explain: "「○と言う」はふきだし（文字）が出るだけで、声は出ないんだ。本当に声でしゃべらせたいときは「音声合成（Text to Speech）」の拡張機能を使うよ。"
+    },
+    {
+      q: "Scratchとつなげて、Scratchから動かせる「本物の機械」はどれ？",
+      choices: [
+        "micro:bit（マイクロビット）やレゴのロボット",
+        "ゲーム機（Switchなど）",
+        "テレビのリモコン",
+        "スマホのアプリ"
+      ],
+      answerIndex: 0,
+      explain: "拡張機能を使うと、micro:bitやレゴ、Makey Makey（メイキーメイキー）などの本物の機械とつなげて、Scratchから動かせるんだ。"
+    },
+    {
+      q: "「クラウド変数」（☁マークのついた変数）でできることは？",
+      choices: [
+        "世界中の人と数を共有できる",
+        "自分のパソコンの中だけで使える",
+        "絵や音をほぞんできる",
+        "計算がはやくなる"
+      ],
+      answerIndex: 0,
+      explain: "クラウド変数（☁マーク）はScratchのサーバーにほぞんされるので、ハイスコアの「世界ランキング」みたいなものが作れるよ。ほぞんできるのは数字だけ、というのも細かいポイント！"
+    },
+    {
+      q: "今ログインしている人の名前（ユーザー名）を、作品の中で使うには？",
+      choices: [
+        "「ユーザー名」ブロックを使う",
+        "「○と言う」ブロックに自動で出る",
+        "名前用の拡張機能を追加する",
+        "作品の中では名前は使えない"
+      ],
+      answerIndex: 0,
+      explain: "「調べる」カテゴリーの「ユーザー名」ブロックを使うと、遊んでくれている人の名前を表示したりできるよ。"
+    },
+    {
+      q: "マイクに入った音の大きさ（手をたたく音など）をプログラムで使うには？",
+      choices: [
+        "「音量」ブロックを使う",
+        "「終わるまで音を鳴らす」ブロックを使う",
+        "「音声合成」の拡張機能を使う",
+        "マイクの音はプログラムでは使えない"
+      ],
+      answerIndex: 0,
+      explain: "「調べる」の「音量」ブロックで、マイクの音の大きさが数字で分かるよ。大きな声や拍手でキャラクターを動かすゲームが作れる！"
+    },
+    {
+      q: "「1から10までの乱数」ブロックから出てくる数は？",
+      choices: [
+        "整数も小数も出る（入れ方しだい）",
+        "整数しか出ない",
+        "小数しか出ない",
+        "1か10だけ出る"
+      ],
+      answerIndex: 0,
+      explain: "ふつうは整数だけど、両はしのどちらかに「1.0」のような小数を書くと、小数も出るようになるんだ。知っていると細かい調整ができるよ。"
+    },
+    {
+      q: "動かすとスプライトが上下さかさまになっちゃう…さかさまにしない設定は？",
+      choices: [
+        "「回転方法」を「左右のみ」にする",
+        "「回転方法」を「回転しない」にする",
+        "大きさを小さくする",
+        "「もし端に着いたら、跳ね返る」を消す"
+      ],
+      answerIndex: 0,
+      explain: "「回転方法」を「左右のみ」にすると、右や左を向いても上下にひっくり返らないよ。横スクロールゲームでよく使うワザ！（「回転しない」だと左右を向くこともできなくなるんだ）"
+    },
+    {
+      q: "クローン（自分のコピー）は、最大いくつまで作れる？",
+      choices: [
+        "300",
+        "むげん（いくらでも）",
+        "100",
+        "1000"
+      ],
+      answerIndex: 0,
+      explain: "クローンは同時に300こまで。これ以上作ろうとしても新しいクローンは作られないんだ。雪や弾をたくさん降らせるときに知っておくと便利！"
+    },
+    {
+      q: "Scratchで、自分だけのオリジナルのブロックを作るには？",
+      choices: [
+        "「ブロック定義（マイブロック）」で作る",
+        "拡張機能を追加する",
+        "コスチュームをふやす",
+        "オリジナルのブロックは作れない"
+      ],
+      answerIndex: 0,
+      explain: "「ブロックを作る」で、よく使う処理に名前をつけて自分だけのブロックにできるよ。プログラムがすっきりして読みやすくなるんだ。"
+    }
+  ];
+
+  const LABELS = ["A", "B", "C", "D"];
+
+  const screens = {
+    start: document.getElementById("screen-start"),
+    quiz: document.getElementById("screen-quiz"),
+    result: document.getElementById("screen-result")
+  };
+
+  const progressLabel = document.getElementById("progress-label");
+  const scoreLabel = document.getElementById("score-label");
+  const progressFill = document.getElementById("progress-fill");
+  const questionText = document.getElementById("question-text");
+  const choicesContainer = document.getElementById("choices");
+  const feedback = document.getElementById("feedback");
+  const feedbackResult = document.getElementById("feedback-result");
+  const feedbackExplain = document.getElementById("feedback-explain");
+  const nextRow = document.getElementById("next-row");
+  const nextButton = document.getElementById("next-btn");
+
+  let currentIndex = 0;
+  let correctCount = 0;
+
+  function showScreen(name) {
+    Object.values(screens).forEach(section => section.classList.add("hidden"));
+    screens[name].classList.remove("hidden");
+  }
+
+  // 配列をシャッフルして新しい配列を返す（毎回ならびが変わる）
+  function shuffle(items) {
+    const shuffled = items.slice();
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
+
+  function startQuiz() {
+    currentIndex = 0;
+    correctCount = 0;
+    showScreen("quiz");
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const question = QUESTIONS[currentIndex];
+
+    progressLabel.textContent = `第${currentIndex + 1}問 / ${QUESTIONS.length}問`;
+    scoreLabel.textContent = `せいかい ${correctCount}`;
+    progressFill.style.width = `${(currentIndex / QUESTIONS.length) * 100}%`;
+
+    questionText.textContent = question.q;
+
+    feedback.classList.remove("show", "ok", "ng");
+    nextRow.classList.add("hidden");
+    choicesContainer.innerHTML = "";
+
+    const correctText = question.choices[question.answerIndex];
+    const shuffledChoices = shuffle(question.choices);
+
+    shuffledChoices.forEach((choiceText, position) => {
+      const button = document.createElement("button");
+      button.className = `choice c${position}`;
+      button.innerHTML = `<span class="mark">${LABELS[position]}</span><span>${choiceText}</span>`;
+      button.addEventListener("click", () => answerQuestion(button, choiceText === correctText, correctText));
+      choicesContainer.appendChild(button);
+    });
+  }
+
+  function answerQuestion(selectedButton, isCorrect, correctText) {
+    const buttons = Array.from(choicesContainer.querySelectorAll(".choice"));
+    buttons.forEach(button => {
+      button.disabled = true;
+      const choiceLabel = button.querySelector("span:last-child").textContent;
+      if (choiceLabel === correctText) {
+        button.classList.add("correct");
+      } else if (button === selectedButton) {
+        button.classList.add("wrong");
+      } else {
+        button.classList.add("dimmed");
+      }
+    });
+
+    if (isCorrect) {
+      correctCount++;
+      feedback.classList.add("ok");
+      feedbackResult.textContent = "せいかい！🎉";
+    } else {
+      feedback.classList.add("ng");
+      feedbackResult.textContent = "ざんねん…正解はみどりのところ！";
+    }
+
+    scoreLabel.textContent = `せいかい ${correctCount}`;
+    feedbackExplain.textContent = QUESTIONS[currentIndex].explain;
+    feedback.classList.add("show");
+
+    nextButton.textContent = currentIndex === QUESTIONS.length - 1 ? "けっかを見る →" : "つぎの問題 →";
+    nextRow.classList.remove("hidden");
+  }
+
+  function goNext() {
+    currentIndex++;
+    if (currentIndex >= QUESTIONS.length) {
+      showResult();
+    } else {
+      renderQuestion();
+    }
+  }
+
+  function showResult() {
+    showScreen("result");
+    document.getElementById("result-score").textContent = correctCount;
+
+    const isNewBest = saveBestScore(QUIZ_ID, correctCount);
+    const bestScore = getBestScore(QUIZ_ID);
+    const bestNote = document.getElementById("best-note");
+    bestNote.textContent = (isNewBest && correctCount > 0)
+      ? `🎉 ベストこうしん！ いまのベストは ${bestScore} / ${QUESTIONS.length}問`
+      : `これまでのベスト：${bestScore} / ${QUESTIONS.length}問`;
+
+    const emoji = document.getElementById("result-emoji");
+    const title = document.getElementById("result-title");
+    const message = document.getElementById("result-message");
+
+    if (correctCount === QUESTIONS.length) {
+      emoji.textContent = "🏆";
+      title.textContent = "パーフェクト！";
+      message.textContent = "ぜんもんせいかい！キミはもうScratch名人だね。みんなにも正しい使い方を教えてあげよう！";
+    } else if (correctCount >= 7) {
+      emoji.textContent = "🎉";
+      title.textContent = "名人まであと少し！";
+      message.textContent = "Scratchのことをよく知ってるね。知らなかった使い方は、つぎに作品で使ってみよう！";
+    } else if (correctCount >= 4) {
+      emoji.textContent = "😊";
+      title.textContent = "いいかんじ！";
+      message.textContent = "知らなかった使い方もあったかな？気になった機能はDojoでためしてみよう。";
+    } else {
+      emoji.textContent = "🌱";
+      title.textContent = "これからだ！";
+      message.textContent = "知らない使い方を見つけられたのがだいじ。もう一回ちょうせんして、名人をめざそう！";
+    }
+  }
+
+  document.getElementById("start-btn").addEventListener("click", startQuiz);
+  document.getElementById("retry-btn").addEventListener("click", startQuiz);
+  nextButton.addEventListener("click", goNext);
+</script>
+</body>
+</html>

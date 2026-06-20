@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>できる・できないクイズ｜CoderDojo瀬戸 Scratchクイズ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="topbar-home" href="index.html">
+        <span class="logo">🐱</span>
+        <span class="logo-text">Scratchクイズ</span>
+      </a>
+      <a class="topbar-credit" href="https://coderdojo-seto.jp/" target="_blank" rel="noopener">
+        <img class="topbar-credit-icon" src="coderdojo-seto-icon.png" alt="">
+        <span>CoderDojo瀬戸</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="page">
+    <a class="back-link" href="index.html">← クイズ一覧へもどる</a>
+
+    <div class="page-head">
+      <h1>できる・できないクイズ</h1>
+      <p>これ、Scratchで「できる」？それとも「できない」？ 全10問</p>
+    </div>
+
+    <!-- スタート画面 -->
+    <section id="screen-start" class="card screen-start">
+      <div class="emoji">⭕️❌</div>
+      <h2>はじめるよ！</h2>
+      <p>「Scratchでこんなことできる？」を、<strong>⭕️できる</strong> か <strong>❌できない</strong> で当ててね。<br>“えっ、できるの!?” も “意外とできないんだ” もあるよ。</p>
+      <button class="btn btn-start" id="start-btn">🚩 スタート</button>
+    </section>
+
+    <!-- 問題画面 -->
+    <section id="screen-quiz" class="card hidden">
+      <div class="progress-row">
+        <span id="progress-label">第1問 / 10問</span>
+        <span id="score-label">せいかい 0</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+      <p class="question-lead">Scratchで…</p>
+      <h2 class="question-text center" id="question-text"></h2>
+      <div class="question-note" id="question-note"></div>
+
+      <div class="answers">
+        <button class="answer-btn can" id="btn-can"><span class="face">⭕️</span>できる</button>
+        <button class="answer-btn cannot" id="btn-cannot"><span class="face">❌</span>できない</button>
+      </div>
+
+      <div class="feedback" id="feedback">
+        <p class="result" id="feedback-result"></p>
+        <span class="answer-badge" id="answer-badge"></span>
+        <p class="explain" id="feedback-explain"></p>
+      </div>
+
+      <div class="next-row hidden" id="next-row">
+        <button class="btn btn-next" id="next-btn">つぎの問題 →</button>
+      </div>
+    </section>
+
+    <!-- 結果画面 -->
+    <section id="screen-result" class="card screen-result hidden">
+      <div class="emoji" id="result-emoji">🎉</div>
+      <h2 id="result-title">けっか</h2>
+      <div class="score"><span id="result-score">0</span><small> / 10 問せいかい</small></div>
+      <p class="best-note" id="best-note"></p>
+      <p class="result-message" id="result-message"></p>
+      <div class="result-actions">
+        <button class="btn btn-blue" id="retry-btn">もう一回</button>
+        <a class="btn btn-ghost" href="index.html">ほかのクイズをやる</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">CoderDojo瀬戸 ｜ みんなでプログラミングを楽しもう</footer>
+  </main>
+
+<script src="scores.js"></script>
+<script>
+  const QUIZ_ID = "dekiru";
+
+  // canDo: true なら「できる」、false なら「できない」が正解。
+  const QUESTIONS = [
+    {
+      q: "自分の声をマイクで録音して、効果音やセリフに使える？",
+      canDo: true,
+      explain: "「音」タブの録音ボタンで、自分の声や音を録音してそのまま作品に使えるよ。"
+    },
+    {
+      q: "ほかの人が作った作品の「中身（プログラム）」を見ることができる？",
+      canDo: true,
+      explain: "作品ページの「中を見る」を押すと、コードを見て勉強できる。気に入ったら「リミックス」して作りかえてもOK！"
+    },
+    {
+      q: "クラウド変数に、文字（ことば）を保存できる？",
+      note: "クラウド変数は、ふつうの変数とちがって、インターネット（Scratchのサーバー）にほぞんされる、☁マークのついた特別な変数。世界中の人とその中身を共有できるから、オンラインのランキングなどに使われるよ。",
+      canDo: false,
+      explain: "クラウド変数に保存できるのは数字だけなんだ。名前などの文字（ことば）は保存できないよ。"
+    },
+    {
+      q: "スプライトを半とうめい（うっすら）にできる？",
+      canDo: true,
+      explain: "「見た目」の「幽霊（ゆうれい）の効果」を大きくすると、だんだん透明になっていくよ。"
+    },
+    {
+      q: "インターネットの「今日の天気」を取ってきて表示できる？",
+      canDo: false,
+      explain: "Scratchは外のウェブサイトのデータ（天気やニュースなど）を取ってくることは基本できないんだ。みんなが安全に使うための仕組みだよ。"
+    },
+    {
+      q: "ウェブカメラに写った自分の体の動きで、スプライトを動かせる？",
+      canDo: true,
+      explain: "「ビデオモーションセンサー」の拡張機能を使うと、カメラに写った動きで遊べるよ。"
+    },
+    {
+      q: "とくに工夫しなくても、本格的な3D（立体）のゲームが作れる？",
+      canDo: false,
+      explain: "Scratchは基本は2D（平面）。立体っぽく見せる工夫はできるけど、標準では3Dゲームは作れないよ。"
+    },
+    {
+      q: "ブロックの表示を、英語や中国語など別のことばに切りかえられる？",
+      canDo: true,
+      explain: "画面上の地球マークから言語を切りかえられる。世界中の人が自分のことばでScratchを使えるんだ。"
+    },
+    {
+      q: "音の高さ（ピッチ）を変えて、声や音を高くしたり低くしたりできる？",
+      canDo: true,
+      explain: "「音」の「ピッチの効果」を変えると、音や声を高く・低くできるよ。おばけや小人の声も作れる！"
+    },
+    {
+      q: "作品の中に、YouTubeの動画やほかのウェブサイトをうめこめる？",
+      canDo: false,
+      explain: "Scratchの中に外部の動画やサイトをうめこむことはできないんだ。動画っぽく見せたいときは、コスチュームをパラパラ変えてアニメにしよう！"
+    }
+  ];
+
+  const screens = {
+    start: document.getElementById("screen-start"),
+    quiz: document.getElementById("screen-quiz"),
+    result: document.getElementById("screen-result")
+  };
+
+  const progressLabel = document.getElementById("progress-label");
+  const scoreLabel = document.getElementById("score-label");
+  const progressFill = document.getElementById("progress-fill");
+  const questionText = document.getElementById("question-text");
+  const questionNote = document.getElementById("question-note");
+  const canButton = document.getElementById("btn-can");
+  const cannotButton = document.getElementById("btn-cannot");
+  const feedback = document.getElementById("feedback");
+  const feedbackResult = document.getElementById("feedback-result");
+  const answerBadge = document.getElementById("answer-badge");
+  const feedbackExplain = document.getElementById("feedback-explain");
+  const nextRow = document.getElementById("next-row");
+  const nextButton = document.getElementById("next-btn");
+
+  let currentIndex = 0;
+  let correctCount = 0;
+
+  function showScreen(name) {
+    Object.values(screens).forEach(section => section.classList.add("hidden"));
+    screens[name].classList.remove("hidden");
+  }
+
+  function startQuiz() {
+    currentIndex = 0;
+    correctCount = 0;
+    showScreen("quiz");
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const question = QUESTIONS[currentIndex];
+
+    progressLabel.textContent = `第${currentIndex + 1}問 / ${QUESTIONS.length}問`;
+    scoreLabel.textContent = `せいかい ${correctCount}`;
+    progressFill.style.width = `${(currentIndex / QUESTIONS.length) * 100}%`;
+
+    questionText.textContent = question.q;
+
+    if (question.note) {
+      questionNote.innerHTML = `<span class="note-label">💡 クラウド変数って？</span>${question.note}`;
+      questionNote.classList.add("show");
+    } else {
+      questionNote.textContent = "";
+      questionNote.classList.remove("show");
+    }
+
+    feedback.classList.remove("show", "ok", "ng");
+    nextRow.classList.add("hidden");
+
+    [canButton, cannotButton].forEach(button => {
+      button.disabled = false;
+      button.classList.remove("correct", "wrong", "dimmed");
+    });
+  }
+
+  function answerQuestion(chosenCanDo) {
+    const question = QUESTIONS[currentIndex];
+    const isCorrect = chosenCanDo === question.canDo;
+    const correctButton = question.canDo ? canButton : cannotButton;
+    const chosenButton = chosenCanDo ? canButton : cannotButton;
+
+    [canButton, cannotButton].forEach(button => {
+      button.disabled = true;
+      if (button === correctButton) {
+        button.classList.add("correct");
+      } else if (button === chosenButton) {
+        button.classList.add("wrong");
+      } else {
+        button.classList.add("dimmed");
+      }
+    });
+
+    if (isCorrect) {
+      correctCount++;
+      feedback.classList.add("ok");
+      feedbackResult.textContent = "せいかい！🎉";
+    } else {
+      feedback.classList.add("ng");
+      feedbackResult.textContent = "ざんねん…";
+    }
+
+    answerBadge.className = "answer-badge " + (question.canDo ? "can" : "cannot");
+    answerBadge.textContent = question.canDo ? "こたえ：⭕️ できる" : "こたえ：❌ できない";
+
+    scoreLabel.textContent = `せいかい ${correctCount}`;
+    feedbackExplain.textContent = question.explain;
+    feedback.classList.add("show");
+
+    nextButton.textContent = currentIndex === QUESTIONS.length - 1 ? "けっかを見る →" : "つぎの問題 →";
+    nextRow.classList.remove("hidden");
+  }
+
+  function goNext() {
+    currentIndex++;
+    if (currentIndex >= QUESTIONS.length) {
+      showResult();
+    } else {
+      renderQuestion();
+    }
+  }
+
+  function showResult() {
+    showScreen("result");
+    document.getElementById("result-score").textContent = correctCount;
+
+    const isNewBest = saveBestScore(QUIZ_ID, correctCount);
+    const bestScore = getBestScore(QUIZ_ID);
+    const bestNote = document.getElementById("best-note");
+    bestNote.textContent = (isNewBest && correctCount > 0)
+      ? `🎉 ベストこうしん！ いまのベストは ${bestScore} / ${QUESTIONS.length}問`
+      : `これまでのベスト：${bestScore} / ${QUESTIONS.length}問`;
+
+    const emoji = document.getElementById("result-emoji");
+    const title = document.getElementById("result-title");
+    const message = document.getElementById("result-message");
+
+    if (correctCount === QUESTIONS.length) {
+      emoji.textContent = "🏆";
+      title.textContent = "パーフェクト！";
+      message.textContent = "ぜんもんせいかい！Scratchでできること・できないことをよく分かってるね。すごい！";
+    } else if (correctCount >= 7) {
+      emoji.textContent = "🎉";
+      title.textContent = "すごい！";
+      message.textContent = "いいかんじ！「できる」を知ってると、作りたいものがどんどん作れるようになるよ。";
+    } else if (correctCount >= 4) {
+      emoji.textContent = "😊";
+      title.textContent = "いいかんじ！";
+      message.textContent = "へえ！がいっぱいあったかな？気になった機能はDojoでためしてみよう。";
+    } else {
+      emoji.textContent = "🌱";
+      title.textContent = "これからだ！";
+      message.textContent = "Scratchは思ったよりいろんなことができるんだ。もう一回ちょうせんしてみよう！";
+    }
+  }
+
+  canButton.addEventListener("click", () => answerQuestion(true));
+  cannotButton.addEventListener("click", () => answerQuestion(false));
+  document.getElementById("start-btn").addEventListener("click", startQuiz);
+  document.getElementById("retry-btn").addEventListener("click", startQuiz);
+  nextButton.addEventListener("click", goNext);
+</script>
+</body>
+</html>
